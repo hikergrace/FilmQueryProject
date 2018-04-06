@@ -30,7 +30,30 @@ public class FilmQueryApp {
   }
 
   private void startUserInterface(Scanner input) {
+    Scanner kb = new Scanner(System.in);
+    System.out.println("Hello! Welcome to the Awesome Film Database (AFDB)");
+
+    DatabaseAccessorObject dbo = new DatabaseAccessorObject();
     
+    int choice = kb.nextInt();
+    
+    System.out.println("Please choose from the following options: ");
+    System.out.println("1. Look a film up by it's ID.");
+    System.out.println("2. Look a film up by a search keyword.");
+    System.out.println("3. Exit");
+    
+    switch(choice) {
+    case 1:
+    		dbo.getFilmById(int);
+    		break;
+    case 2: 
+    	
+    		break;
+    case 3: 
+    		System.out.println("Goodbye");
+    		System.exit(1);
+    		break;
+    }
   }
 
 }
