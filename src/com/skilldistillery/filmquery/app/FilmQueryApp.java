@@ -74,13 +74,14 @@ public class FilmQueryApp {
 			System.out.println("Rating: " + f1.getRating());
 			System.out.println("Description: " + f1.getDescription());
 			System.out.println("Cast: " + f1.getCast());
-			 System.out.println("Language: " + f1.getLanguage());
+			System.out.println("Language: " + f1.getLanguage());
 		}
 	}
 
 	public void displayFilmByKeyword(String keyword) {
 		List<Film> f2 = db.getFilmByKeyword(keyword);
-		if (f2 == null) {
+		System.out.println(f2.size());
+		if (f2.size() == 0) {
 			System.out.println("Please enter a valid keyword");
 			System.out.println();
 		} else {
@@ -90,7 +91,7 @@ public class FilmQueryApp {
 				System.out.println("Rating: " + film.getRating());
 				System.out.println("Description: " + film.getDescription());
 				System.out.println("Cast: " + film.getCast());
-				 System.out.println("Language: " + film.getLanguage());
+				System.out.println("Language: " + film.getLanguage());
 			}
 		}
 	}

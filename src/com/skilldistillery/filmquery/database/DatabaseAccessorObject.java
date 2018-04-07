@@ -107,7 +107,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			System.err.println("Error retrieving film with keyword: " + keyword);
 			e.printStackTrace();
 		}
-		System.out.println(films);
 		return films;
 	}
 
