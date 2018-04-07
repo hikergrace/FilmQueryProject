@@ -80,6 +80,31 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		}
 		return actor;
 	}
+	
+	@Override
+	public List<Film> getFilmByKeyword(String keyword) {
+		List<Film> films = new ArrayList<>();
+		String sql = "select title, description, release_year, rating from film where title like ? or description like ?";
+		try {
+			Connection conn = DriverManager.getConnection(URL, user, pass);
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setString(1, "%" + keyword + "%");
+			stmt.setString(2, "%" + keyword + "%");
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				String title = rs.getString(1);
+				String description = rs.getString(2);
+				int year = rs.getInt(3);
+				String rating = rs.getString(4);
+
+				films.add(new Film(title, description, year, rating));
+			}
+		} catch (SQLException e) {
+			System.err.println("Error retrieving film with keyword: " + keyword);
+			e.printStackTrace();
+		}
+		return films;
+	}
 
 	@Override
 	public List<Actor> getActorsByFilmId(int filmId) {
@@ -110,6 +135,11 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		return cast;
 	}
 
+	
+	
+	
+	
+	
 	static {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -120,4 +150,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		}
 
 	}
+	
+
 }
+

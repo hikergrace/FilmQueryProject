@@ -190,6 +190,14 @@ public class Film {
 		this.specFeatures = specFeatures;
 		
 	}
+	
+	public Film(String title, String description, int year, String rating) {
+		super();
+		this.title = title;
+		this.description = description;
+		this.year = year;
+		this.rating = rating;
+	}
 
 	
 }
