@@ -61,11 +61,14 @@ public class FilmQueryApp {
   }
   
   public void displayFilmById(int id) {
+	  System.out.println("in display");
 	  Film f1 = db.getFilmById(id);
 	  System.out.println("Title: " + f1.getTitle());
 	  System.out.println("Year released: " + f1.getYear());
 	  System.out.println("Rating: " + f1.getRating());
 	  System.out.println("Description: " + f1.getDescription());
+	  System.out.println("Cast: " + f1.getCast());
+	  //System.out.println("Language: " + f1.getLanguage());
   }
   
   public void displayFilmByKeyword(String keyword) {
@@ -76,6 +79,8 @@ public class FilmQueryApp {
 	  System.out.println("Year released: " + film.getYear());
 	  System.out.println("Rating: " + film.getRating());
 	  System.out.println("Description: " + film.getDescription());
+	  System.out.println("Cast: " + film.getCast());
+	  //System.out.println("Language: " + film.getLanguage());
 	  }
   }
   

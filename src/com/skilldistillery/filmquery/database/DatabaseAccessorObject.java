@@ -20,8 +20,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	@Override
 	public Film getFilmById(int filmId){
 		Film film = null;
-		String sql = "SELECT id, title, description, release_year, language_id, rental_duration, "
-				+ " rental_rate, length, replacement_cost, rating, special_features FROM film WHERE id = ?";
+		String sql = "SELECT film.id, title, description, release_year, language_id, rental_duration, rental_rate, length, replacement_cost, rating, special_features FROM film WHERE film.id = ?";
 		try {
 			Connection conn = DriverManager.getConnection(URL, user, pass);
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -40,9 +39,10 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				double replaceCost = rs.getDouble(9);
 				String rating = rs.getString(10);
 				String specialFeatures = rs.getString(11);
-				film = new Film(fid, title, description, releaseYear, languageId, rentalDur, rentalRate, length, replaceCost, rating, specialFeatures);
-				List<Actor> cast = getActorsByFilmId(filmId);
-				film.setCast(cast);
+				//String language = rs.getString(12);
+				film = new Film(fid, title, description, releaseYear, languageId, rentalDur, rentalRate, length, replaceCost, rating, specialFeatures, getActorsByFilmId(filmId));
+				//List<Actor> cast = getActorsByFilmId(filmId);
+				//film.setCast(cast);
 			}
 			rs.close();
 			stmt.close();
@@ -84,7 +84,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	@Override
 	public List<Film> getFilmByKeyword(String keyword) {
 		List<Film> films = new ArrayList<>();
-		String sql = "select title, description, release_year, rating from film where title like ? or description like ?";
+		String sql = "select title, description, release_year, rating, film.id from film where title like ? or description like ?";
 		try {
 			Connection conn = DriverManager.getConnection(URL, user, pass);
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -97,7 +97,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				int year = rs.getInt(3);
 				String rating = rs.getString(4);
 
-				films.add(new Film(title, description, year, rating));
+				films.add(new Film(title, description, year, rating, getActorsByFilmId(rs.getInt(5))));
 			}
 		} catch (SQLException e) {
 			System.err.println("Error retrieving film with keyword: " + keyword);
@@ -105,6 +105,34 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		}
 		return films;
 	}
+
+//	private List<Actor> getActorsByFilmKeyword(String keyword) {
+//		List<Actor> cast = new ArrayList<>();
+//		String sql = "SELECT id, first_name, last_name FROM actor JOIN film_actor ON actor.id = film_actor.actor_id WHERE film_id = ?";
+//		
+//		try {
+//			Connection conn = DriverManager.getConnection(URL, user, pass);
+//			PreparedStatement stmt = conn.prepareStatement(sql);
+//			stmt.setString(1, keyword);
+//			ResultSet rs = stmt.executeQuery();
+//			while (rs.next()) {
+//				int id = rs.getInt(1);
+//				String firstName = rs.getString(2);
+//				String lastName = rs.getString(3);
+//				Actor actor = new Actor(id, firstName, lastName);
+//				cast.add(actor);
+//			}
+//			rs.close();
+//			stmt.close();
+//			conn.close();
+//			
+//		} catch (SQLException e) {
+//			System.err.println("Error retrieving actor with film keyword " + keyword);
+//			e.printStackTrace();
+//		}
+//		
+//		return cast;
+//	}
 
 	@Override
 	public List<Actor> getActorsByFilmId(int filmId) {
@@ -135,10 +163,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		return cast;
 	}
 
-	
-	
-	
-	
 	
 	static {
 		try {
