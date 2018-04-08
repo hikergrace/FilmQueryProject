@@ -40,7 +40,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				double replaceCost = rs.getDouble(9);
 				String rating = rs.getString(10);
 				String specialFeatures = rs.getString(11);
-				// String language = rs.getString(12);
 				film = new Film(fid, title, description, releaseYear, languageId, rentalDur, rentalRate, length,
 						replaceCost, rating, specialFeatures, getActorsByFilmId(filmId));
 				film.setLanguage(getLanguagesByFilmLangId(languageId));
@@ -88,7 +87,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 	@Override
 	public List<Film> getFilmByKeyword(String keyword) {
 		List<Film> films = new ArrayList<>();
-		//SELECT film.id, film.title, film.description, film.release_year, language.name FROM film JOIN language ON language.id = film.id WHERE film.id = ?;
 		String sql = "select title, description, release_year, rating, film.id, film.language_id from film where title like ? or description like ?";
 		try {
 			Connection conn = DriverManager.getConnection(URL, user, pass);
@@ -101,7 +99,8 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 				String description = rs.getString(2);
 				int year = rs.getInt(3);
 				String rating = rs.getString(4);
-				films.add(new Film(title, description, year, rating, getActorsByFilmId(rs.getInt(5)), getLanguagesByFilmLangId(rs.getInt(6))));
+				films.add(new Film(title, description, year, rating, getActorsByFilmId(rs.getInt(5)),
+						getLanguagesByFilmLangId(rs.getInt(6))));
 			}
 		} catch (SQLException e) {
 			System.err.println("Error retrieving film with keyword: " + keyword);
@@ -161,8 +160,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		}
 		return language;
 	}
-	
-	
+
 	static {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");

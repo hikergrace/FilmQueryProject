@@ -44,7 +44,7 @@ public class Language {
 	}
 	@Override
 	public String toString() {
-		return "Language :" + name;
+		return "Language: " + name;
 	}
 	public Language(String name, int id) {
 		super();

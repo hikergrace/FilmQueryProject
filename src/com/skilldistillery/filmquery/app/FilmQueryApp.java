@@ -31,29 +31,31 @@ public class FilmQueryApp {
 
 	private void startUserInterface(Scanner input) {
 		Scanner kb = new Scanner(System.in);
-		System.out.println("Hello! Welcome to the Awesome Film Database (AFDB)");
+		System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		System.out.println("  Hello! Welcome to the Awesome Film Database (AFDB)  ");
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
 		while (true) {
 
-			System.out.println("\nPlease choose from the following options: ");
-			System.out.println("1. Look a film up by it's ID.");
-			System.out.println("2. Look a film up by a search keyword.");
-			System.out.println("3. Exit");
+			System.out.println("\n   Please choose from the following options: ");
+			System.out.println("\t1. Look a film up by it's ID.");
+			System.out.println("\t2. Look a film up by a search keyword.");
+			System.out.println("\t3. Exit");
 
 			int choice = kb.nextInt();
 			switch (choice) {
 			case 1:
-				System.out.println("Please enter an ID number.");
+				System.out.println("\tPlease enter an ID number.");
 				int idChoice = kb.nextInt();
 				displayFilmById(idChoice);
 				break;
 			case 2:
-				System.out.println("Please enter a keyword");
+				System.out.println("\tPlease enter a keyword");
 				String keywordChoice = kb.next();
 				displayFilmByKeyword(keywordChoice);
 				break;
 			case 3:
-				System.out.println("Goodbye");
+				System.out.println("   Goodbye!");
 				System.exit(1);
 				break;
 			default:
@@ -74,7 +76,7 @@ public class FilmQueryApp {
 			System.out.println("Rating: " + f1.getRating());
 			System.out.println("Description: " + f1.getDescription());
 			System.out.println("Cast: " + f1.getCast());
-			System.out.println("Language: " + f1.getLanguage());
+			System.out.println(f1.getLanguage());
 		}
 	}
 
@@ -91,7 +93,7 @@ public class FilmQueryApp {
 				System.out.println("Rating: " + film.getRating());
 				System.out.println("Description: " + film.getDescription());
 				System.out.println("Cast: " + film.getCast());
-				System.out.println("Language: " + film.getLanguage());
+				System.out.println(film.getLanguage());
 			}
 		}
 	}

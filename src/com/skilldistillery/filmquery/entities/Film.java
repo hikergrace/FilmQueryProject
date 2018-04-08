@@ -209,10 +209,10 @@ public class Film {
 
 	@Override
 	public String toString() {
-		return "Film [id = " + id + ", title = " + title + ", description = " + description + ", year = " + year
+		return "Film id = " + id + ", title = " + title + ", description = " + description + ", year = " + year
 				+ ", language = " + language + ", rental duration = " + rentalDur + ", rental rate = " + rentalRate
 				+ ", length = " + length + ", replacement cost = " + replaceCost + ", rating = " + rating
-				+ ", special features = " + specFeatures + ", cast = " + cast + "]";
+				+ ", special features = " + specFeatures + ", cast = " + cast + "";
 	}
 
 	public Film(int id, String title, String description, int year, int langId, int rentalDur, double rentalRate,
@@ -278,10 +278,6 @@ public class Film {
 		this.language = language;
 		this.cast = cast;
 	}
-
-
-
-	
 
 
 }
